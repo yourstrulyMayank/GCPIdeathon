@@ -1,0 +1,5 @@
+train: C:\Users\HP\Documents\GCP Reimagine\Trap-Camera Animal Detection - YOLO\dataset\images\train\
+val: C:\Users\HP\Documents\GCP Reimagine\Trap-Camera Animal Detection - YOLO\dataset\images\val\
+test: C:\Users\HP\Documents\GCP Reimagine\Trap-Camera Animal Detection - YOLO\dataset\images\test\
+nc: 5
+names: ['Asian Elephant', 'Sun Bears', 'Sumatran Tiger', 'Pig Tailed Macaque', 'Rhinoceros Hornbill']

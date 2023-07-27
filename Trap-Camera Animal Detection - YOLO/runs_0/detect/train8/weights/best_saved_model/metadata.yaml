@@ -1,0 +1,16 @@
+description: Ultralytics best model trained on dataset.yaml
+author: Ultralytics
+license: AGPL-3.0 https://ultralytics.com/license
+version: 8.0.131
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: Asian Elephant
+  1: Sun Bears
+  2: Sumatran Tiger
+  3: Pig Tailed Macaque
+  4: Rhinoceros Hornbill

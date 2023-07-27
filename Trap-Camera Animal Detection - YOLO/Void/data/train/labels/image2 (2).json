@@ -1,0 +1,231 @@
+{
+  "version": "5.2.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          2.0392749244713,
+          2.56797583081571
+        ],
+        [
+          23.338368580060422,
+          35.04531722054381
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          45.69486404833836,
+          35.95166163141994
+        ],
+        [
+          26.963746223564957,
+          1.3595166163141994
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          75.75528700906344,
+          33.8368580060423
+        ],
+        [
+          49.320241691842895,
+          3.474320241691843
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          98.56495468277944,
+          33.987915407854985
+        ],
+        [
+          78.62537764350452,
+          3.474320241691843
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          97.9607250755287,
+          73.71601208459214
+        ],
+        [
+          79.68277945619334,
+          35.95166163141994
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          75.0,
+          72.65861027190333
+        ],
+        [
+          58.6858006042296,
+          36.10271903323263
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          55.51359516616314,
+          72.50755287009063
+        ],
+        [
+          40.10574018126887,
+          37.46223564954683
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          37.38670694864048,
+          68.8821752265861
+        ],
+        [
+          23.338368580060422,
+          37.31117824773414
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          21.223564954682775,
+          70.54380664652568
+        ],
+        [
+          0.5287009063444117,
+          37.16012084592145
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          64.27492447129909,
+          76.13293051359517
+        ],
+        [
+          94.18429003021147,
+          98.03625377643505
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          57.93051359516616,
+          98.79154078549848
+        ],
+        [
+          40.86102719033232,
+          75.22658610271903
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          35.87613293051359,
+          98.6404833836858
+        ],
+        [
+          20.468277945619338,
+          71.75226586102718
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Pig Tailed Macaque",
+      "points": [
+        [
+          18.051359516616312,
+          98.94259818731118
+        ],
+        [
+          0.9818731117824768,
+          73.56495468277946
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "..\\images\\image2 (2).jpeg",
+  "imageData": "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",
+  "imageHeight": 100,
+  "imageWidth": 100
+}

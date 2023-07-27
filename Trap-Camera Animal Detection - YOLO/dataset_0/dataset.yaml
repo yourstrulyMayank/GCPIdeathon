@@ -1,0 +1,5 @@
+train: images/train/
+val: images/val/
+test: images/test/
+nc: 5
+names: ['Asian Elephant', 'Sun Bears', 'Sumatran Tiger', 'Pig Tailed Macaque', 'Rhinoceros Hornbill']

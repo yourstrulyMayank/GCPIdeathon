@@ -1,0 +1,44 @@
+{
+  "version": "5.2.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Rhinoceros Hornbill",
+      "points": [
+        [
+          94.33534743202416,
+          82.93051359516616
+        ],
+        [
+          54.003021148036254,
+          8.91238670694864
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "Rhinoceros Hornbill",
+      "points": [
+        [
+          50.98187311178248,
+          75.37764350453172
+        ],
+        [
+          5.664652567975832,
+          8.006042296072508
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "..\\images\\images22 (3).jpg",
+  "imageData": "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",
+  "imageHeight": 100,
+  "imageWidth": 100
+}

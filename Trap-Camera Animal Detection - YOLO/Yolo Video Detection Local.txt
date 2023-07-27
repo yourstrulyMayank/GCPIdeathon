@@ -1,0 +1,48 @@
+from ultralytics import YOLO
+import cv2
+import os
+import datetime
+
+model = YOLO(r'C:\Users\HP\Desktop\bestn.pt')
+source = r'G:\Trap\Pig-tailed macaque (Macaca nemestrina) Foraging in Sumatra.mp4'
+cap = cv2.VideoCapture(source)
+path = r'C:\Users\HP\runs\detect\predict3'
+frame_no = 0
+video_name = source.split("\\")[-1]
+if not os.path.exists(os.path.join(path, video_name)):
+    os.mkdir(os.path.join(path, video_name))
+
+# Set the desired downsampling rate (e.g., process every 5th frame)
+downsampling_rate = cap.get(cv2.CAP_PROP_FPS)
+frame_counter = 0
+
+# Get the video's frames per second (fps)
+fps = cap.get(cv2.CAP_PROP_FPS)
+fps_multiplier = 1.0 / fps
+
+while cap.isOpened():
+    ret, curr_frame = cap.read()
+    if not ret:
+        break
+
+    # Only process the frame if it is within the downsampling rate
+    if frame_counter % downsampling_rate == 0:
+        result = model(curr_frame)
+        for res in result:
+            boxes = res.boxes.cpu().numpy()
+            for i, box in enumerate(boxes):
+                if box.conf[0] > 0.5:
+                    res_plotted = res[0].plot(conf=False)
+                    current_frame_timestamp = cap.get(cv2.CAP_PROP_POS_MSEC) * fps_multiplier / 1000
+                    timedelta_obj = str(datetime.timedelta(seconds=round(current_frame_timestamp)))
+                    x = timedelta_obj.split(':')
+                    hh, mm, ss = x[0], x[1], x[2]
+                    filename = f"Timestamp - {hh} Hours, {mm} Minutes, {ss} Seconds.jpg"
+                    filename = os.path.join(path, video_name, filename)
+                    cv2.imwrite(filename, res_plotted)
+                    print("Saved frame:", filename)
+
+    # Increment the frame counter
+    frame_counter += 1
+
+cap.release()

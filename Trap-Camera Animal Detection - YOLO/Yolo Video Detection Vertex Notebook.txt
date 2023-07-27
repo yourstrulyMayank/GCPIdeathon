@@ -1,0 +1,104 @@
+from ultralytics import YOLO
+import cv2
+import os
+import datetime
+from google.cloud import storage
+
+# Initialize Google Cloud Storage client
+storage_client = storage.Client(project='gcds-oht33765u9-2023')
+
+# Specify your bucket names
+model_bucket_name = "trap-camera-data"
+model_blob_name = "model/bestn.pt"
+new_data_bucket_name = "trap-camera-data"
+detections_bucket_name = "trap-camera-data"
+detections_folder_name = "detections"
+
+# Clear the detections folder at the beginning of the script
+detections_bucket = storage_client.bucket(detections_bucket_name)
+detections_blobs = list(detections_bucket.list_blobs(prefix=detections_folder_name))
+for blob in detections_blobs:
+    blob.delete()
+
+# Download the YOLO model from Google Cloud Storage to a local temporary directory
+temp_model_path = "/tmp/bestn.pt"  # Choose a temporary local path
+model_bucket = storage_client.bucket(model_bucket_name)
+model_blob = model_bucket.blob(model_blob_name)
+model_blob.download_to_filename(temp_model_path)
+
+# Load the YOLO model from the local temporary directory
+model = YOLO(temp_model_path)
+
+# Get the list of blobs (files) in the new_data bucket
+new_data_bucket = storage_client.bucket(new_data_bucket_name)
+blobs = new_data_bucket.list_blobs(prefix="new_data/")  # Specify the 'new_data' folder as the prefix
+
+# Create a temporary local directory to store frames
+temp_frames_dir = "/tmp/video_frames/"
+os.makedirs(temp_frames_dir, exist_ok=True)
+
+# Set the desired minimum time difference between frames (in seconds)
+min_time_difference = 0.5
+
+# Iterate over each video in the new_data bucket
+for blob in blobs:
+    if blob.name.endswith(".mp4"):
+        video_name = os.path.basename(blob.name)
+        video_path = f"gs://{new_data_bucket_name}/{blob.name}"
+
+        # Download the video from Google Cloud Storage to the temporary local directory
+        temp_video_path = os.path.join(temp_frames_dir, video_name)
+        blob.download_to_filename(temp_video_path)
+
+        # Open the video from the temporary local directory
+        cap = cv2.VideoCapture(temp_video_path)
+
+        # Get the video's frames per second (fps) and set the downsampling rate
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        downsampling_rate = max(int(fps * min_time_difference), 1)  # Ensure minimum time difference of 0.5 seconds
+        frame_counter = 0
+
+        # Calculate the fps_multiplier correctly
+        fps_multiplier = 1.0 / fps
+
+        while cap.isOpened():
+            ret, curr_frame = cap.read()
+            if not ret:
+                break
+
+            # Only process the frame if it is within the downsampling rate
+            if frame_counter % downsampling_rate == 0:
+                result = model(curr_frame)
+                for res in result:
+                    boxes = res.boxes.cpu().numpy()
+                    for i, box in enumerate(boxes):
+                        if box.conf[0] > 0.5:
+                            res_plotted = res[0].plot(conf=False)
+                            current_frame_timestamp = cap.get(cv2.CAP_PROP_POS_MSEC) * fps_multiplier
+                            timedelta_obj = str(datetime.timedelta(seconds=round(current_frame_timestamp / 1000)))
+                            x = timedelta_obj.split(':')
+                            hh, mm, ss = x[0], x[1], x[2]
+                            filename = f"Timestamp - {hh} Hours, {mm} Minutes, {ss} Seconds.jpg"
+                            output_filename = os.path.join(temp_frames_dir, filename)
+                            cv2.imwrite(output_filename, res_plotted)
+                            print("Saved frame:", output_filename)
+
+            # Increment the frame counter
+            frame_counter += 1
+
+        cap.release()
+
+        # After processing all frames, upload the images to the final destination folder in the bucket
+        output_folder = os.path.splitext(os.path.join(detections_folder_name, video_name))[0]
+        for frame_file in os.listdir(temp_frames_dir):
+            if frame_file.endswith(".jpg"):
+                frame_path = os.path.join(temp_frames_dir, frame_file)
+                output_path = f"{output_folder}/{frame_file}"
+                with storage_client.bucket(detections_bucket_name).blob(output_path).open("wb") as f:
+                    f.write(open(frame_path, "rb").read())
+
+        # Clean up the temporary directory for the current video
+        os.system(f"rm -rf {temp_frames_dir}/{video_name}")
+
+# Clean up the temporary directory
+os.system(f"rm -rf {temp_frames_dir}")
